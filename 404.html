@@ -193,13 +193,36 @@
   
 
   
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'true' === 'true',
+      loop: 'all',
+      order: 'list',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"Past Lives","artist":"slushii","url":"/songs/Slushii - Past Lives.mp3","cover":"/img/morty1.jpg"},{"name":"Summertime Sadness","artist":"lana","url":"/songs/Summertime Sadness.mp3","cover":"/img/lana.png"},{"name":"Video Games","artist":"lana","url":"/songs/VideoGames.mp3","cover":"/img/lana.png"},{"name":"Diet Mountain Dew","artist":"lana","url":"/songs/Diet Mountain Dew.mp3","cover":"/img/lana.png"}]
+    });
+  }
+</script>
+
+  
 
   
 
   <footer class="mt-5">
 
   <div class="text-center py-3">
-  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1384482575&auto=1&height=66"></iframe>
+
     <div>
       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
       <i class="iconfont icon-love"></i>
