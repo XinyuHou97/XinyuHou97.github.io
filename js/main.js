@@ -1,259 +1,127 @@
-(function($) {
-
-	skel.breakpoints({
-		xlarge:	'(max-width: 1680px)',
-		large:	'(max-width: 1280px)',
-		medium:	'(max-width: 980px)',
-		small:	'(max-width: 736px)',
-		xsmall:	'(max-width: 480px)',
-		xxsmall: '(max-width: 360px)'
-	});
-
-	/**
-	 * Applies parallax scrolling to an element's background image.
-	 * @return {jQuery} jQuery object.
-	 */
-	$.fn._parallax = function(intensity) {
-
-		var	$window = $(window),
-			$this = $(this);
-
-		if (this.length == 0 || intensity === 0)
-			return $this;
-
-		if (this.length > 1) {
-
-			for (var i=0; i < this.length; i++)
-				$(this[i])._parallax(intensity);
-
-			return $this;
-
-		}
-
-		if (!intensity)
-			intensity = 0.25;
-
-		$this.each(function() {
-
-			var $t = $(this),
-				$bg = $('<div class="bg"></div>').appendTo($t),
-				on, off;
-
-			on = function() {
-
-				$bg
-					.removeClass('fixed')
-					.css('transform', 'none');
-
-				$window
-					.on('scroll._parallax', function() {
-
-						$bg.css('transform', 'none');
-
-					});
-			};
-
-			off = function() {
-
-				$bg
-					.addClass('fixed')
-					.css('transform', 'none');
-
-				$window
-					.off('scroll._parallax');
-
-			};
-
-			// Disable parallax on ..
-				if (skel.vars.browser == 'ie'		// IE
-				||	skel.vars.browser == 'edge'		// Edge
-				||	window.devicePixelRatio > 1		// Retina/HiDPI (= poor performance)
-				||	skel.vars.mobile)				// Mobile devices
-					off();
-
-			// Enable everywhere else.
-				else {
-
-					skel.on('!large -large', on);
-					skel.on('+large', off);
-
-				}
-
-		});
-
-		$window
-			.off('load._parallax resize._parallax')
-			.on('load._parallax resize._parallax', function() {
-				$window.trigger('scroll');
-			});
-
-		return $(this);
-
-	};
-
-	$(function() {
-
-		var	$window = $(window),
-			$body = $('body'),
-			$wrapper = $('#wrapper'),
-			$header = $('#header'),
-			$nav = $('#nav'),
-			$main = $('#main'),
-			$navPanelToggle, $navPanel, $navPanelInner;
-
-		// Disable animations/transitions until the page has loaded.
-			$window.on('load', function() {
-				window.setTimeout(function() {
-					$body.removeClass('is-loading');
-				}, 100);
-			});
-
-		// Prioritize "important" elements on medium.
-			skel.on('+medium -medium', function() {
-				$.prioritize(
-					'.important\\28 medium\\29',
-					skel.breakpoint('medium').active
-				);
-			});
-
-		// Scrolly.
-			$('.scrolly').scrolly();
-
-		// Background.
-			$wrapper._parallax(0.925);
-
-		// Nav Panel.
-
-			// Toggle.
-				$navPanelToggle = $(
-					'<a href="#navPanel" id="navPanelToggle">Menu</a>'
-				)
-					.appendTo($wrapper);
-
-				// Change toggle styling once we've scrolled past the header.
-					$header.scrollex({
-						bottom: '5vh',
-						enter: function() {
-							$navPanelToggle.removeClass('alt');
-						},
-						leave: function() {
-							$navPanelToggle.addClass('alt');
-						}
-					});
-
-			// Panel.
-				$navPanel = $(
-					'<div id="navPanel">' +
-						'<nav>' +
-						'</nav>' +
-						'<a href="#navPanel" class="close"></a>' +
-					'</div>'
-				)
-					.appendTo($body)
-					.panel({
-						delay: 500,
-						hideOnClick: true,
-						hideOnSwipe: true,
-						resetScroll: true,
-						resetForms: true,
-						side: 'right',
-						target: $body,
-						visibleClass: 'is-navPanel-visible'
-					});
-
-				// Get inner.
-					$navPanelInner = $navPanel.children('nav');
-
-				// Move nav content on breakpoint change.
-					var $navContent = $nav.children();
-
-					skel.on('!medium -medium', function() {
-
-						// NavPanel -> Nav.
-							$navContent.appendTo($nav);
-
-						// Flip icon classes.
-							$nav.find('.icons, .icon')
-								.removeClass('alt');
-
-					});
-
-					skel.on('+medium', function() {
-
-						// Nav -> NavPanel.
-						$navContent.appendTo($navPanelInner);
-
-						// Flip icon classes.
-							$navPanelInner.find('.icons, .icon')
-								.addClass('alt');
-
-					});
-
-				// Hack: Disable transitions on WP.
-					if (skel.vars.os == 'wp'
-					&&	skel.vars.osVersion < 10)
-						$navPanel
-							.css('transition', 'none');
-
-		// Intro.
-			var $intro = $('#intro');
-
-			if ($intro.length > 0) {
-
-				// Hack: Fix flex min-height on IE.
-					if (skel.vars.browser == 'ie') {
-						$window.on('resize.ie-intro-fix', function() {
-
-							var h = $intro.height();
-
-							if (h > $window.height())
-								$intro.css('height', 'auto');
-							else
-								$intro.css('height', h);
-
-						}).trigger('resize.ie-intro-fix');
-					}
-
-				// Hide intro on scroll (> small).
-					skel.on('!small -small', function() {
-
-						$main.unscrollex();
-
-						$main.scrollex({
-							mode: 'bottom',
-							top: '25vh',
-							bottom: '-50vh',
-							enter: function() {
-								$intro.addClass('hidden');
-							},
-							leave: function() {
-								$intro.removeClass('hidden');
-							}
-						});
-
-					});
-
-				// Hide intro on scroll (<= small).
-					skel.on('+small', function() {
-
-						$main.unscrollex();
-
-						$main.scrollex({
-							mode: 'middle',
-							top: '15vh',
-							bottom: '-15vh',
-							enter: function() {
-								$intro.addClass('hidden');
-							},
-							leave: function() {
-								$intro.removeClass('hidden');
-							}
-						});
-
-				});
-
-			}
-
-	});
-
-})(jQuery);
+// 监听滚动事件
+function listenScroll(callback) {
+  // eslint-disable-next-line no-undef
+  const dbc = new Debouncer(callback);
+  window.addEventListener('scroll', dbc, false);
+  dbc.handleEvent();
+}
+
+// 滚动到指定元素
+function scrollToElement(target, offset) {
+  var scroll_offset = $(target).offset();
+  $('body,html').animate({
+    scrollTop: scroll_offset.top + (offset || 0),
+    easing   : 'swing'
+  });
+}
+
+// 顶部菜单的监听事件
+function navbarScrollEvent() {
+  var navbar = $('#navbar');
+  var submenu = $('#navbar .dropdown-menu');
+  if (navbar.offset().top > 0) {
+    navbar.addClass('navbar-custom');
+    navbar.removeClass('navbar-dark');
+    submenu.addClass('navbar-custom');
+    submenu.removeClass('navbar-dark');
+  }
+  listenScroll(function() {
+    navbar[navbar.offset().top > 50 ? 'addClass' : 'removeClass']('top-nav-collapse');
+    submenu[navbar.offset().top > 50 ? 'addClass' : 'removeClass']('dropdown-collapse');
+    if (navbar.offset().top > 0) {
+      navbar.addClass('navbar-custom');
+      navbar.removeClass('navbar-dark');
+      submenu.addClass('navbar-custom');
+      submenu.removeClass('navbar-dark');
+    } else {
+      navbar.addClass('navbar-dark');
+      submenu.removeClass('navbar-dark');
+    }
+  });
+  $('#navbar-toggler-btn').on('click', function() {
+    $('.animated-icon').toggleClass('open');
+    $('#navbar').toggleClass('navbar-col-show');
+  });
+}
+
+// 头图视差的监听事件
+function parallaxEvent() {
+  var target = $('#background[parallax="true"]');
+  var parallax = function() {
+    var oVal = $(window).scrollTop() / 5;
+    var offset = parseInt($('#board').css('margin-top'), 0);
+    var max = 96 + offset;
+    if (oVal > max) {
+      oVal = max;
+    }
+    target.css({
+      transform          : 'translate3d(0,' + oVal + 'px,0)',
+      '-webkit-transform': 'translate3d(0,' + oVal + 'px,0)',
+      '-ms-transform'    : 'translate3d(0,' + oVal + 'px,0)',
+      '-o-transform'     : 'translate3d(0,' + oVal + 'px,0)'
+    });
+
+    var toc = $('#toc');
+    if (toc) {
+      $('#toc-ctn').css({
+        'padding-top': oVal + 'px'
+      });
+    }
+  };
+  if (target.length > 0) {
+    listenScroll(parallax);
+  }
+}
+
+// 向下滚动箭头的监听事件
+function scrollDownArrowEvent() {
+  $('.scroll-down-bar').on('click', function() {
+    scrollToElement('#board', -$('#navbar').height());
+  });
+}
+
+// 向顶部滚动箭头的监听事件
+function scrollTopArrowEvent() {
+  var topArrow = $('#scroll-top-button');
+  if (!topArrow) {
+    return;
+  }
+  var posDisplay = false;
+  var scrollDisplay = false;
+  // 位置
+  var setTopArrowPos = function() {
+    var boardRight = document.getElementById('board').getClientRects()[0].right;
+    var bodyWidth = document.body.offsetWidth;
+    var right = bodyWidth - boardRight;
+    posDisplay = right >= 50;
+    topArrow.css({
+      'bottom': posDisplay && scrollDisplay ? '20px' : '-60px',
+      'right' : right - 64 + 'px'
+    });
+  };
+  setTopArrowPos();
+  $(window).resize(setTopArrowPos);
+  // 显示
+  var headerHeight = $('#board').offset().top;
+  listenScroll(function() {
+    var scrollHeight = document.body.scrollTop + document.documentElement.scrollTop;
+    scrollDisplay = scrollHeight >= headerHeight;
+    topArrow.css({
+      'bottom': posDisplay && scrollDisplay ? '20px' : '-60px'
+    });
+  });
+  // 点击
+  topArrow.on('click', function() {
+    $('body,html').animate({
+      scrollTop: 0,
+      easing   : 'swing'
+    });
+  });
+}
+
+$(document).ready(function() {
+  navbarScrollEvent();
+  parallaxEvent();
+  scrollDownArrowEvent();
+  scrollTopArrowEvent();
+});
