@@ -591,16 +591,16 @@ sup > a::before,
 .navbar .dropdown-item:hover {
   color: #1abc9c;
 }
-@supports (-webkit-backdrop-filter: blur(3px)) or (backdrop-filter: blur(3px)) {
+@supports (-webkit-backdrop-filter: blur(2.5px)) or (backdrop-filter: blur(2.5px)) {
   .navbar .dropdown-collapse {
-    background: rgba(47,65,84,0.7);
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
+    background: rgba(105,105,105,0.5);
+    -webkit-backdrop-filter: blur(2.5px);
+    backdrop-filter: blur(2.5px);
   }
 }
-@supports not ((-webkit-backdrop-filter: blur(3px)) or (backdrop-filter: blur(3px))) {
+@supports not ((-webkit-backdrop-filter: blur(2.5px)) or (backdrop-filter: blur(2.5px))) {
   .navbar .dropdown-collapse {
-    background: #2f4154;
+    background: #696969;
   }
 }
 .navbar-custom {
@@ -609,28 +609,28 @@ sup > a::before,
 .navbar-custom a {
   color: white;
 }
-@supports (-webkit-backdrop-filter: blur(3px)) or (backdrop-filter: blur(3px)) {
+@supports (-webkit-backdrop-filter: blur(2.5px)) or (backdrop-filter: blur(2.5px)) {
   .top-nav-collapse {
-    background: rgba(47,65,84,0.7);
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
+    background: rgba(105,105,105,0.5);
+    -webkit-backdrop-filter: blur(2.5px);
+    backdrop-filter: blur(2.5px);
   }
 }
-@supports not ((-webkit-backdrop-filter: blur(3px)) or (backdrop-filter: blur(3px))) {
+@supports not ((-webkit-backdrop-filter: blur(2.5px)) or (backdrop-filter: blur(2.5px))) {
   .top-nav-collapse {
-    background: #2f4154;
+    background: #696969;
   }
 }
-@supports (-webkit-backdrop-filter: blur(3px)) or (backdrop-filter: blur(3px)) {
+@supports (-webkit-backdrop-filter: blur(2.5px)) or (backdrop-filter: blur(2.5px)) {
   .navbar-col-show {
-    background: rgba(47,65,84,0.7);
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
+    background: rgba(105,105,105,0.5);
+    -webkit-backdrop-filter: blur(2.5px);
+    backdrop-filter: blur(2.5px);
   }
 }
-@supports not ((-webkit-backdrop-filter: blur(3px)) or (backdrop-filter: blur(3px))) {
+@supports not ((-webkit-backdrop-filter: blur(2.5px)) or (backdrop-filter: blur(2.5px))) {
   .navbar-col-show {
-    background: #2f4154;
+    background: #696969;
   }
 }
 @media (max-width: 767px) {
