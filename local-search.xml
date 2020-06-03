@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>How to Build a Website (1. Introduction)</title>
+    <link href="/2020/06/03/buildwebsite1/"/>
+    <url>/2020/06/03/buildwebsite1/</url>
+    
+    <content type="html"><![CDATA[<h2 id="How-to-Build-a-Website-1-Introduction"><a href="#How-to-Build-a-Website-1-Introduction" class="headerlink" title="How to Build a Website (1. Introduction)"></a>How to Build a Website (1. Introduction)</h2><p>This is a tutorial for building your own website.<br>I will share two easy methods to build a website for yourself.</p><h3 id="Introduction-of-two-methods"><a href="#Introduction-of-two-methods" class="headerlink" title="Introduction of two methods"></a>Introduction of two methods</h3><ul><li><strong>Virtual server + WordPress</strong><br>Building the evironment on the server is a huge work load. But creating and maintaining your website through WordPress is quite easy and relaxing.<br>This method need to buy a virtual server and a domain name. But you can use that server to build a VPN (tutorial for it is upcoming).<br>More professional. Can create dynamic webpage.</li><li><strong>GitHub Page + Hexo</strong><br>Do not need evironment building. Creating is very very easy. But maintaining it needs a little more knowledge and work load. Static webpage.<br>Don’t need to buy a server. And if you don’t care about the domain name, you even don’t need to buy a domain name.</li></ul><h3 id="How-to-choose-method"><a href="#How-to-choose-method" class="headerlink" title="How to choose method"></a>How to choose method</h3><p><strong>Virtual server + WordPress</strong></p><ul><li>If you need more storage for your website.</li><li>If you need dynamic webpage.</li><li>If you also wanna build a VPN.</li></ul><p><strong>GitHub Page + Hexo</strong></p><ul><li>If you create for fun or self-introduction.</li><li>If you don’t want spend too much money on it.</li></ul><p>…………..<br>Details of these two methods will be updated next time I can’t sleep</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Tech</category>
+      
+      <category>Build_Website</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Website</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hello World</title>
     <link href="/2020/06/01/first/"/>
     <url>/2020/06/01/first/</url>
