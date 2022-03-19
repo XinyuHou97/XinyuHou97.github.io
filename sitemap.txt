@@ -1,0 +1,8 @@
+http://yoursite.com/about/index.html
+http://yoursite.com/2020/06/03/buildwebsite1/
+http://yoursite.com/2020/06/01/first/
+http://yoursite.com/
+http://yoursite.com/tags/Website/
+http://yoursite.com/tags/Balderdashes/
+http://yoursite.com/categories/Tech/
+http://yoursite.com/categories/Tech/Build-Website/
